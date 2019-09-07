@@ -1,5 +1,5 @@
 # Start with a base image containing Java runtime
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jdk-alpine as build
 
 # Add Maintainer Info
 LABEL maintainer="bruno.istvan@gmail.com"
@@ -19,5 +19,9 @@ ADD ${JAR_FILE} test-sm*.jar
 # Run the jar file 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", \
 				   "-Dapp.name=hello-world-demo", \	
+				   "-Daws_access_key_id=xyz", \
+				   "-Daws_secret_access_key=xyz", \   
                    "-jar","/test-sm*.jar"]
+                   
+                   
                    

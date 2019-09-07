@@ -1,0 +1,10 @@
+{
+	"username": "test_user",
+	"password": "test_password",
+	"engine": "mysql",
+	"host": "172.17.0.2",
+	"port": "3306",
+	"dbInstanceIdentifier": "test_sm",
+	"driverClassname": "com.mysql.jdbc.Driver"
+}
+

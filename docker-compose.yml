@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  aws_sm:
+    container_name: localstack_secretsmanager
+    image: localstack/localstack
+    ports:
+      - "4584:4584"
+      - "8000:8080"
+    environment:
+      - SERVICES=secretsmanager
+      - AWS_ACCESS_KEY_ID=xyz
+      - AWS_SECRET_ACCESS_KEY=xyz
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    entrypoint: awslocal secretsmanager create-secret --region=us-east-1 --name test_sm/secret/db --secret-string 'username=test_user, password=test_password, engine=mysql, host=172.17.0.2, port=3306, dbInstanceIdentifier=test_sm, driverClassname=com.mysql.jdbc.Driver'
+    network_mode: bridge
+
+      
+#  api_sm:
+#    container_name: test-api
+#    build:
+#      context: test-sm 
+#      dockerfile: Dockerfile
+#    ports:
+#      - "5000:8080"
+#    network_mode: bridge
+#    restart: always
+#    depends_on:
+#      - db_sm
+#      - aws_sm
+
+      
+  db_sm:
+    container_name: test-mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: senha-mysql
+      MYSQL_DATABASE: test_sm
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_password
+    ports: 
+      - "3306:3306"
+    restart: always
+    network_mode: bridge
+    
+    
+      

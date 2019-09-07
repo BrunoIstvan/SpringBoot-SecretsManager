@@ -10,7 +10,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureException;
 
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
