@@ -15,7 +15,9 @@ services:
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
       - DOCKER_HOST=unix:///var/run/docker.sock
-    entrypoint: awslocal secretsmanager create-secret --region=us-east-1 --name test_sm/secret/db --secret-string 'username=test_user, password=test_password, engine=mysql, host=172.17.0.2, port=3306, dbInstanceIdentifier=test_sm, driverClassname=com.mysql.jdbc.Driver'
+    depends_on:
+      - db_sm
+#    entrypoint: awslocal secretsmanager create-secret --region=us-east-1 --name test_sm/secret/db --secret-string 'username=test_user, password=test_password, engine=mysql, host=172.17.0.2, port=3306, dbInstanceIdentifier=test_sm, driverClassname=com.mysql.jdbc.Driver'
     network_mode: bridge
 
       
@@ -45,6 +47,3 @@ services:
       - "3306:3306"
     restart: always
     network_mode: bridge
-    
-    
-      
